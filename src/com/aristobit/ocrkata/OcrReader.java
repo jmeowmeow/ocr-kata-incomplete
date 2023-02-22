@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -58,10 +57,48 @@ public class OcrReader {
 			if (anyNull(accountRecord)) {
 				return null;
 			}
+			accountNumber = parseOcrRecord(accountRecord);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 		return accountNumber;
+	}
+
+	// 0123 ran of time typing
+    private static final String[] ocrDigits = new String[] {
+     " _ | ||_|",
+     "     |  |",
+     " _  _||_ ",
+     " _  _| _|"
+
+    };
+    		
+	private String parseOcrRecord(String[] accountRecord) {
+		// step through the top three lines three spaces at a time
+		// to create a digit, compare the digit to ocrDigits
+		// and concatenate the digits to form an account number
+		StringBuilder buf = new StringBuilder();
+		int column = 0;
+		while (column < 27) {
+			StringBuilder pattern = new StringBuilder();
+			pattern = pattern.append(accountRecord[0].substring(column, column+2));
+			pattern = pattern.append(accountRecord[1].substring(column, column+2));
+			pattern = pattern.append(accountRecord[2].substring(column, column+2));
+			// ignore 4th line presumed blank
+			
+			// should use a Map key but ran out of time
+			if (ocrDigits[0].equals(pattern)) {
+				buf.append("0");
+			} else if (ocrDigits[1].equals(pattern)) {
+				buf.append("1");
+			} else if (ocrDigits[2].equals(pattern)) {
+				buf.append("2");
+			} else if (ocrDigits[3].equals(pattern)) {
+				buf.append("3");
+			}
+			column += 3;
+		}
+		return buf.toString();
 	}
 
 	private boolean anyNull(String[] accountRecord) {
