@@ -14,6 +14,10 @@ public class OcrReader {
 	private BufferedReader ocrInputReader;
 	private OcrResult ocrResult;
 
+	public static void main(String[] args) throws Exception {
+		OcrMain.main(args);
+	}
+
 	public OcrReader(BufferedReader inputReader) {
 		this.ocrInputReader = inputReader;
 	}

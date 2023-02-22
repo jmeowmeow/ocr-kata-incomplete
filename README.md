@@ -6,8 +6,10 @@ Worked by Jeffrey S. Miller, jeffrey.miller@gmail.com
 2022-02-22
 
 Start 11:06
+JUnit and OcrReader shaping up
 Pause 11:52.
 Resume 12:18
+Get a main program that uses OcrReader and can take filenames.
 
 # Original Description (from the Coding Dojo wiki)
 
