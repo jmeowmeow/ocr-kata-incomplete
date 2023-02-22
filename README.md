@@ -5,6 +5,9 @@
 Worked by Jeffrey S. Miller, jeffrey.miller@gmail.com
 2022-02-22
 
+Start 11:06
+Pause 11:52.
+
 # Original Description (from the Coding Dojo wiki)
 
 (see http://codingdojo.org/kata/BankOCR/)
