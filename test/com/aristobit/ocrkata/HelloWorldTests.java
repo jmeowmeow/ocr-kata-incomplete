@@ -8,7 +8,7 @@ import org.junit.Test;
 /**
  * Get the lights on with JUnit 4
  */
-public class HelloWorldTest {
+public class HelloWorldTests {
 
 	@Test
 	public void lightsAreOn() {
