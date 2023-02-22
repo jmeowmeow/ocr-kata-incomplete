@@ -3,6 +3,9 @@ package com.aristobit.ocrkata;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Takes a BufferedReader and reads line by line,
@@ -11,8 +14,9 @@ import java.io.StringReader;
  */
 public class OcrReader {
 
-	private BufferedReader ocrInputReader;
-	private OcrResult ocrResult;
+	private static final int OCR_RECORD_LENGTH = 4;
+	private BufferedReader ocrInputReader; // consumed once
+	private OcrResult ocrResult; // produced once
 
 	public static void main(String[] args) throws Exception {
 		OcrMain.main(args);
@@ -35,13 +39,38 @@ public class OcrReader {
 	}
 
 	private void createOcrResult() {
-		// stand-in for input file processing
+		List<String> parsedAccounts = new ArrayList<String>();
+		String accountNumber;
+		while ((accountNumber = parseNextAccount()) != null) {
+			parsedAccounts.add(accountNumber);
+		}
+		ocrResult = new OcrResult(parsedAccounts);
+	}
+
+	private String parseNextAccount() {
+		String[] accountRecord = new String[OCR_RECORD_LENGTH];
+		String accountNumber = "000000000";
 		try {
-			while (ocrInputReader.readLine() != null) { }
+			accountRecord[0] = ocrInputReader.readLine();
+			accountRecord[1] = ocrInputReader.readLine();
+			accountRecord[2] = ocrInputReader.readLine();
+			accountRecord[3] = ocrInputReader.readLine();
+			if (anyNull(accountRecord)) {
+				return null;
+			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		ocrResult = new OcrResult();
+		return accountNumber;
+	}
+
+	private boolean anyNull(String[] accountRecord) {
+		for (String line : accountRecord) {
+			if (line == null) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

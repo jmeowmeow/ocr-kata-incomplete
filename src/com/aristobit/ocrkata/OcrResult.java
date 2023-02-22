@@ -4,12 +4,18 @@ import java.util.List;
 
 public class OcrResult {
 
+	private List<String> parsedAccounts = List.of("000000000");
+
+	public OcrResult(List<String> parsedAccounts) {
+		this.parsedAccounts = parsedAccounts;
+	}
+
 	public int getSize() {
-		return 0;
+		return parsedAccounts.size();
 	}
 
 	public List<String> getParsedAccounts() {
-		return List.of("000000000");
+		return parsedAccounts;
 	}
 
 }
