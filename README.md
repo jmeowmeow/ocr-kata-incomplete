@@ -7,6 +7,7 @@ Worked by Jeffrey S. Miller, jeffrey.miller@gmail.com
 
 Start 11:06
 Pause 11:52.
+Resume 12:18
 
 # Original Description (from the Coding Dojo wiki)
 
